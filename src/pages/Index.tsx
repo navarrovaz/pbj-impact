@@ -1,13 +1,48 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Helmet } from "react-helmet-async";
+import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
+import DiferenciaisSection from "@/components/DiferenciaisSection";
+import RompedoresSection from "@/components/RompedoresSection";
+import PonteirasSection from "@/components/PonteirasSection";
+import OrcamentoSection from "@/components/OrcamentoSection";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <>
+      <Helmet>
+        <title>PBK Equipamentos | Rompedores e Ponteiras Industriais de Alta Performance</title>
+        <meta
+          name="description"
+          content="Rompedores hidráulicos, ponteiras e peças originais para máxima durabilidade. Garantia de fábrica e suporte técnico especializado. Solicite orçamento!"
+        />
+        <meta
+          name="keywords"
+          content="rompedor hidráulico, ponteiras industriais, peças para rompedores, equipamentos de perfuração, PBK Equipamentos, demolição, mineração"
+        />
+        <meta property="og:title" content="PBK Equipamentos | Rompedores Hidráulicos de Alta Performance" />
+        <meta
+          property="og:description"
+          content="Força, Precisão e Confiança em Cada Impacto! Rompedores e ponteiras industriais com garantia de fábrica."
+        />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://pbjequipamentos.com.br" />
+      </Helmet>
+
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main>
+          <HeroSection />
+          <DiferenciaisSection />
+          <RompedoresSection />
+          <PonteirasSection />
+          <OrcamentoSection />
+        </main>
+        <Footer />
+        <WhatsAppButton />
       </div>
-    </div>
+    </>
   );
 };
 
