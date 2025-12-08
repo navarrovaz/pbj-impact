@@ -34,10 +34,11 @@ const PecasReposicaoSection = () => {
             Peças de Reposição
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Peças originais e de alta durabilidade para manter seus equipamentos em perfeitas condições.
+            Peças originais e de alta durabilidade para manter seus equipamentos em perfeitas condições. 
             Garantia de fábrica e suporte técnico especializado.
           </p>
         </div>
+
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
           {pecas.map((peca, index) => (
