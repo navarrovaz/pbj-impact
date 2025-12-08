@@ -1,15 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
+import buchasAnel from "@/assets/buchas-anel.png";
+import buchasLisa from "@/assets/buchas-lisa.png";
+import cunhas from "@/assets/cunhas.png";
+import kitVedacao from "@/assets/kit-vedacao.png";
+import pinoTrava from "@/assets/pino-trava.png";
+import pistoes from "@/assets/pistoes.png";
+import tiranteLateral from "@/assets/tirante-lateral.png";
+import tirante from "@/assets/tirante.png";
 
 const pecas = [
-  { nome: "Tirante", descricao: "Aço carbono de alta resistência" },
-  { nome: "Pistões", descricao: "Precisão e durabilidade garantidas" },
-  { nome: "Buchas com Anel", descricao: "Encaixe perfeito e longa vida útil" },
-  { nome: "Buchas Lisas", descricao: "Acabamento superior" },
-  { nome: "Pino Trava", descricao: "Segurança e fixação confiável" },
-  { nome: "Tirante Lateral", descricao: "Reforço estrutural robusto" },
-  { nome: "Cunhas", descricao: "Ajuste preciso e eficiente" },
-  { nome: "Kit Vedação, Membranas e Amortecedores", descricao: "Pacote completo de manutenção" },
+  { name: "Tirante", descricao: "Aço carbono de alta resistência", image: tirante },
+  { name: "Pistões", descricao: "Precisão e durabilidade garantidas", image: pistoes },
+  { name: "Buchas com Anel", descricao: "Encaixe perfeito e longa vida útil", image: buchasAnel },
+  { name: "Buchas Lisas", descricao: "Acabamento superior", image: buchasLisa },
+  { name: "Pino Trava", descricao: "Segurança e fixação confiável", image: pinoTrava },
+  { name: "Tirante Lateral", descricao: "Reforço estrutural robusto", image: tiranteLateral },
+  { name: "Cunhas", descricao: "Ajuste preciso e eficiente", image: cunhas },
+  { name: "Kit Vedação, Membranas e Amortecedores", descricao: "Pacote completo de manutenção", image: kitVedacao },
 ];
 
 const PecasReposicaoSection = () => {
@@ -31,22 +39,21 @@ const PecasReposicaoSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
           {pecas.map((peca, index) => (
             <div
               key={index}
               className="group bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-glow"
             >
               <div className="aspect-square bg-muted flex items-center justify-center p-6">
-                <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/10 rounded-lg flex items-center justify-center">
-                  <span className="text-4xl text-primary/60 group-hover:text-primary transition-colors">
-                    ⚙️
-                  </span>
+                <div className="w-full h-full   from-muted to-muted-foreground/10 rounded-lg flex items-center justify-center">
+                  <img className="h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-300" src={peca.image} alt={peca.name} />
                 </div>
               </div>
               <div className="p-4 text-center">
                 <h3 className="font-heading font-semibold text-foreground mb-1 text-sm md:text-base">
-                  {peca.nome}
+                  {peca.name}
                 </h3>
                 <p className="text-xs text-muted-foreground mb-4">
                   {peca.descricao}
@@ -57,7 +64,7 @@ const PecasReposicaoSection = () => {
                   className="w-full"
                 >
                   <a
-                    href={getWhatsAppLink(peca.nome)}
+                    href={getWhatsAppLink(peca.name)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
