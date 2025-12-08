@@ -1,4 +1,4 @@
-import { Shield, Wrench, Headphones, Zap } from "lucide-react";
+import { Shield, Wrench, Headphones, Zap, Star } from "lucide-react";
 
 const diferenciais = [
   {
@@ -8,8 +8,8 @@ const diferenciais = [
   },
   {
     icon: Wrench,
-    title: "Peças Originais",
-    description: "Componentes genuínos para maior durabilidade e desempenho.",
+    title: "Peças Originais PBK & Multimarcas",
+    description: "Componentes genuínos e das marcas mais confiáveis para maior durabilidade e desempenho.",
   },
   {
     icon: Headphones,
@@ -29,7 +29,7 @@ const DiferenciaisSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl md:text-5xl font-bold text-secondary mb-4">
-            Por que escolher <span className="text-gradient">PBK?</span>
+            Por que escolher a <span className="text-gradient">PBK?</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Equipamentos de alta performance com suporte completo para sua operação

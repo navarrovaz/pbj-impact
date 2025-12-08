@@ -2,16 +2,21 @@ import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ponteiraEspeciais from "@/assets/especiais-png.webp";
 import ponteiraCinzel from "@/assets/ponteira-cinzel-png.webp";
-import ponteiraUniversal from "@/assets/ponteira-universal-png_1.webp";
-import ponteiraPlano from "@/assets/ponteira-plana-png.webp";
+import ponteiraPlana from "@/assets/ponteira-plana.webp";
+import ponteiraUni from "@/assets/ponteira-uni-png.webp";
 
 const WHATSAPP_NUMBER = "5531986794960";
 
 const ponteiras = [
   {
-    name: "Modelos Especiais",
-    image: ponteiraEspeciais,
-    description: "Ponteiras especiais para aplicações específicas e projetos customizados.",
+    name: "Universal",
+    image: ponteiraUni,
+    description: "Versátil para múltiplas aplicações em diferentes tipos de material.",
+  },
+  {
+    name: "Plano",
+    image: ponteiraPlana,
+    description: "Perfeita para acabamento e trabalhos que exigem precisão.",
   },
   {
     name: "Cinzel",
@@ -19,14 +24,9 @@ const ponteiras = [
     description: "Ideal para corte e demolição de estruturas de concreto e asfalto.",
   },
   {
-    name: "Universal",
-    image: ponteiraUniversal,
-    description: "Versátil para múltiplas aplicações em diferentes tipos de material.",
-  },
-  {
-    name: "Plano",
-    image: ponteiraPlano,
-    description: "Perfeita para acabamento e trabalhos que exigem precisão.",
+    name: "Projetos Especiais",
+    image: ponteiraEspeciais,
+    description: "Ponteiras especiais para aplicações específicas e projetos customizados.",
   },
 ];
 

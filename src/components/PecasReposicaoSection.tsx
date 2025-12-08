@@ -4,19 +4,15 @@ import buchasAnel from "@/assets/buchas-anel.png";
 import buchasLisa from "@/assets/buchas-lisa.png";
 import cunhas from "@/assets/cunhas.png";
 import kitVedacao from "@/assets/kit-vedacao.png";
-import pinoTrava from "@/assets/pino-trava.png";
 import pistoes from "@/assets/pistoes.png";
-import tiranteLateral from "@/assets/tirante-lateral.png";
 import tirante from "@/assets/tirante.png";
 
 const pecas = [
-  { name: "Tirante", descricao: "Aço carbono de alta resistência", image: tirante },
+  { name: "Tirantes", descricao: "Aço carbono de alta resistência", image: tirante },
   { name: "Pistões", descricao: "Precisão e durabilidade garantidas", image: pistoes },
   { name: "Buchas com Anel", descricao: "Encaixe perfeito e longa vida útil", image: buchasAnel },
   { name: "Buchas Lisas", descricao: "Acabamento superior", image: buchasLisa },
-  { name: "Pino Trava", descricao: "Segurança e fixação confiável", image: pinoTrava },
-  { name: "Tirante Lateral", descricao: "Reforço estrutural robusto", image: tiranteLateral },
-  { name: "Cunhas", descricao: "Ajuste preciso e eficiente", image: cunhas },
+  { name: "Cunhas E Pinos", descricao: "Ajuste preciso e eficiente", image: cunhas },
   { name: "Kit Vedação, Membranas e Amortecedores", descricao: "Pacote completo de manutenção", image: kitVedacao },
 ];
 
@@ -34,13 +30,13 @@ const PecasReposicaoSection = () => {
             Peças de Reposição
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Peças originais e de alta durabilidade para manter seus equipamentos em perfeitas condições. 
+            Peças originais e de alta durabilidade para manter seus equipamentos em perfeitas condições.
             Garantia de fábrica e suporte técnico especializado.
           </p>
         </div>
 
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
           {pecas.map((peca, index) => (
             <div
               key={index}
