@@ -73,7 +73,7 @@ const Footer = () => {
                 <span>Rua Maria Lúcia, 58<br />Lagoa Santa/MG</span>
               </div>
               <a
-                href="https://pbjequipamentos.com.br"
+                href="https://pbkequipamentos.com.br"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm"
