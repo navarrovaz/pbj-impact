@@ -1,9 +1,9 @@
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ponteiraEspeciais from "@/assets/ponteira-especiais.png";
-import ponteiraCinzel from "@/assets/ponteira-cinzel.png";
-import ponteiraUniversal from "@/assets/ponteira-universal.png";
-import ponteiraPlano from "@/assets/ponteira-plano.png";
+import ponteiraEspeciais from "@/assets/especiais-png.webp";
+import ponteiraCinzel from "@/assets/ponteira-cinzel-png.webp";
+import ponteiraUniversal from "@/assets/ponteira-universal-png_1.webp";
+import ponteiraPlano from "@/assets/ponteira-plana-png.webp";
 
 const WHATSAPP_NUMBER = "5531986794960";
 

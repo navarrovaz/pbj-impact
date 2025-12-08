@@ -1,6 +1,6 @@
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/hero-bg.png";
+import heroBg from "@/assets/rompedor hidraulico pbk.webp";
 
 const WHATSAPP_NUMBER = "5531986794960";
 const WHATSAPP_MESSAGE = encodeURIComponent("Olá! Gostaria de solicitar um orçamento para equipamentos PBK.");
@@ -27,7 +27,7 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl animate-fade-up" style={{ animationDelay: "0.2s" }}>
-            Rompedores hidráulicos, ponteiras e peças industriais de alta performance 
+            Rompedores hidráulicos, ponteiras e peças industriais de alta performance
             para máxima durabilidade e eficiência em suas operações.
           </p>
 
