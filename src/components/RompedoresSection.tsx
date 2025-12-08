@@ -1,8 +1,22 @@
-import { MessageCircle, ChevronDown } from "lucide-react";
+import { useState, useMemo } from "react";
+import { MessageCircle, ChevronDown, Search, ArrowLeft, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import rompedorImg from "@/assets/rompedor-png.webp";
 
 const WHATSAPP_NUMBER = "5531986794960";
+
+interface Modelo {
+  modelo: string;
+  peso: string;
+  vazao: string;
+  pressao: string;
+  frequencia: string;
+  energia: string;
+  mangueira: string;
+  ferramenta: string;
+  escavadeira: string;
+}
 
 const modelos = {
   maisVendidos: [
@@ -29,31 +43,208 @@ const modelos = {
 };
 
 const especificacoes = [
-  "Peso Operacional (Kg)",
-  "Vazão de Trabalho (L/min)",
-  "Pressão de Trabalho (Bar)",
-  "Frequência de Impacto (bpm)",
-  "Energia de Impacto (Joule)",
-  "Diâmetro da Mangueira (pol)",
-  "Diâmetro da Ferramenta (mm)",
-  "Peso da Escavadeira (ton)",
+  { key: "peso", label: "Peso Operacional", unit: "Kg" },
+  { key: "vazao", label: "Vazão de Trabalho", unit: "L/min" },
+  { key: "pressao", label: "Pressão de Trabalho", unit: "Bar" },
+  { key: "frequencia", label: "Frequência de Impacto", unit: "bpm" },
+  { key: "energia", label: "Energia de Impacto", unit: "Joule" },
+  { key: "mangueira", label: "Diâmetro da Mangueira", unit: "pol" },
+  { key: "ferramenta", label: "Diâmetro da Ferramenta", unit: "mm" },
+  { key: "escavadeira", label: "Peso da Escavadeira", unit: "ton" },
 ];
 
-const TableRow = ({ spec, values }: { spec: string; values: string[] }) => (
-  <tr className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-    <td className="py-3 px-4 text-sm text-primary font-medium">{spec}</td>
-    {values.map((value, idx) => (
-      <td key={idx} className="py-3 px-4 text-sm text-center text-muted-foreground">
-        {value}
-      </td>
-    ))}
-  </tr>
-);
+const allModelos = [...modelos.maisVendidos, ...modelos.outrosModelos, ...modelos.linhasPesadas];
+
+const getWhatsAppLink = (modelo: string) => {
+  const message = encodeURIComponent(`Olá! Gostaria de saber mais sobre o rompedor ${modelo} da PBK Equipamentos.`);
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+};
+
+// Individual Model View Component
+const ModeloIndividualView = ({ 
+  modelo, 
+  onClose 
+}: { 
+  modelo: Modelo; 
+  onClose: () => void;
+}) => {
+  return (
+    <div className="animate-fade-in">
+      <div className="bg-gradient-card rounded-xl border border-border overflow-hidden">
+        <div className="p-6 border-b border-border flex items-center justify-between">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={onClose}
+            className="gap-2 text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Voltar
+          </Button>
+          <button 
+            onClick={onClose}
+            className="p-2 rounded-full hover:bg-muted transition-colors"
+          >
+            <X className="w-5 h-5 text-muted-foreground" />
+          </button>
+        </div>
+        
+        <div className="p-8">
+          <div className="text-center mb-8">
+            <span className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-heading uppercase tracking-wider mb-4">
+              Especificações Técnicas
+            </span>
+            <h3 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-2">
+              {modelo.modelo}
+            </h3>
+            <p className="text-muted-foreground">
+              Rompedor Hidráulico de Alta Performance
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {especificacoes.map((spec) => (
+              <div 
+                key={spec.key}
+                className="bg-muted/30 rounded-lg p-4 border border-border/50 hover:border-primary/50 transition-colors"
+              >
+                <p className="text-sm text-muted-foreground mb-1">{spec.label}</p>
+                <p className="text-xl font-heading font-bold text-foreground">
+                  {modelo[spec.key as keyof Modelo]} 
+                  <span className="text-sm text-primary ml-1">{spec.unit}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              onClick={onClose}
+              className="gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Ver outros modelos
+            </Button>
+            <a href={getWhatsAppLink(modelo.modelo)} target="_blank" rel="noopener noreferrer">
+              <Button variant="whatsapp" size="lg" className="gap-2 w-full sm:w-auto">
+                <MessageCircle className="w-5 h-5" />
+                Solicitar Orçamento
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Table Component with Filter
+const ModelosTable = ({
+  title,
+  icon,
+  subtitle,
+  modelosList,
+  onSelectModelo,
+  searchFilter,
+}: {
+  title: string;
+  icon: string;
+  subtitle?: string;
+  modelosList: Modelo[];
+  onSelectModelo: (modelo: Modelo) => void;
+  searchFilter: string;
+}) => {
+  const filteredModelos = useMemo(() => {
+    if (!searchFilter) return modelosList;
+    return modelosList.filter(m => 
+      m.modelo.toLowerCase().includes(searchFilter.toLowerCase())
+    );
+  }, [modelosList, searchFilter]);
+
+  if (filteredModelos.length === 0) return null;
+
+  return (
+    <div className="bg-gradient-card rounded-xl border border-border overflow-hidden">
+      <div className="p-6 border-b border-border">
+        <h3 className="font-heading text-xl font-semibold text-foreground flex items-center gap-2">
+          <span>{icon}</span> {title}
+        </h3>
+        {subtitle && (
+          <p className="text-muted-foreground text-sm mt-1">{subtitle}</p>
+        )}
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[700px]">
+          <thead>
+            <tr className="border-b border-border bg-muted/50">
+              <th className="py-4 px-4 text-left text-sm font-heading text-muted-foreground">Especificação</th>
+              {filteredModelos.map((m) => (
+                <th 
+                  key={m.modelo} 
+                  className="py-4 px-4 text-center text-sm font-heading text-primary cursor-pointer hover:text-primary/80 transition-colors group"
+                  onClick={() => onSelectModelo(m)}
+                >
+                  <span className="group-hover:underline underline-offset-4">{m.modelo}</span>
+                  <span className="block text-[10px] text-muted-foreground font-normal opacity-0 group-hover:opacity-100 transition-opacity">
+                    clique para detalhes
+                  </span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {especificacoes.map((spec) => (
+              <tr key={spec.key} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                <td className="py-3 px-4 text-sm text-primary font-medium">
+                  {spec.label} ({spec.unit})
+                </td>
+                {filteredModelos.map((m) => (
+                  <td 
+                    key={m.modelo} 
+                    className="py-3 px-4 text-sm text-center text-muted-foreground cursor-pointer hover:text-foreground hover:bg-primary/5 transition-colors"
+                    onClick={() => onSelectModelo(m)}
+                  >
+                    {m[spec.key as keyof Modelo]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-border">
+        {filteredModelos.map((m) => (
+          <Button 
+            key={m.modelo} 
+            variant="outline" 
+            size="sm" 
+            className="gap-2 hover:bg-primary hover:text-primary-foreground transition-all"
+            onClick={() => onSelectModelo(m)}
+          >
+            <MessageCircle className="w-4 h-4" />
+            {m.modelo}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const RompedoresSection = () => {
-  const getWhatsAppLink = (modelo: string) => {
-    const message = encodeURIComponent(`Olá! Gostaria de saber mais sobre o rompedor ${modelo} da PBK Equipamentos.`);
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+  const [selectedModelo, setSelectedModelo] = useState<Modelo | null>(null);
+  const [searchFilter, setSearchFilter] = useState("");
+
+  const hasResults = useMemo(() => {
+    if (!searchFilter) return true;
+    return allModelos.some(m => 
+      m.modelo.toLowerCase().includes(searchFilter.toLowerCase())
+    );
+  }, [searchFilter]);
+
+  const handleClearFilter = () => {
+    setSearchFilter("");
   };
 
   return (
@@ -101,159 +292,98 @@ const RompedoresSection = () => {
           </div>
         </div>
 
-        {/* Tables */}
-        <div className="space-y-12">
-          {/* Most Sold Table */}
-          <div className="bg-gradient-card rounded-xl border border-border overflow-hidden">
-            <div className="p-6 border-b border-border">
-              <h3 className="font-heading text-xl font-semibold text-foreground flex items-center gap-2">
-                <span className="text-yellow-500">⭐</span> Os Mais Vendidos
-              </h3>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[700px]">
-                <thead>
-                  <tr className="border-b border-border bg-muted/50">
-                    <th className="py-4 px-4 text-left text-sm font-heading text-muted-foreground">Especificação</th>
-                    {modelos.maisVendidos.map((m) => (
-                      <th key={m.modelo} className="py-4 px-4 text-center text-sm font-heading text-primary">
-                        {m.modelo}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {especificacoes.map((spec, idx) => (
-                    <TableRow
-                      key={spec}
-                      spec={spec}
-                      values={modelos.maisVendidos.map((m) => {
-                        const keys = ["peso", "vazao", "pressao", "frequencia", "energia", "mangueira", "ferramenta", "escavadeira"];
-                        return m[keys[idx] as keyof typeof m];
-                      })}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-border">
-              {modelos.maisVendidos.map((m) => (
-                <a key={m.modelo} href={getWhatsAppLink(m.modelo)} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <MessageCircle className="w-4 h-4" />
-                    {m.modelo}
-                  </Button>
-                </a>
-              ))}
-            </div>
+        {/* Search Filter */}
+        <div className="mb-8">
+          <div className="max-w-md mx-auto relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Buscar modelo (ex: PBK150)"
+              value={searchFilter}
+              onChange={(e) => setSearchFilter(e.target.value)}
+              className="pl-12 pr-10 py-6 bg-muted/50 border-border text-foreground placeholder:text-muted-foreground focus:border-primary"
+            />
+            {searchFilter && (
+              <button 
+                onClick={handleClearFilter}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors"
+              >
+                <X className="w-4 h-4 text-muted-foreground" />
+              </button>
+            )}
           </div>
-
-          {/* Other Models Table */}
-          <div className="bg-gradient-card rounded-xl border border-border overflow-hidden">
-            <div className="p-6 border-b border-border">
-              <h3 className="font-heading text-xl font-semibold text-foreground flex items-center gap-2">
-                <span className="text-green-500">✓</span> Mais Modelos Disponíveis
-              </h3>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[700px]">
-                <thead>
-                  <tr className="border-b border-border bg-muted/50">
-                    <th className="py-4 px-4 text-left text-sm font-heading text-muted-foreground">Especificação</th>
-                    {modelos.outrosModelos.map((m) => (
-                      <th key={m.modelo} className="py-4 px-4 text-center text-sm font-heading text-primary">
-                        {m.modelo}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {especificacoes.map((spec, idx) => (
-                    <TableRow
-                      key={spec}
-                      spec={spec}
-                      values={modelos.outrosModelos.map((m) => {
-                        const keys = ["peso", "vazao", "pressao", "frequencia", "energia", "mangueira", "ferramenta", "escavadeira"];
-                        return m[keys[idx] as keyof typeof m];
-                      })}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-border">
-              {modelos.outrosModelos.map((m) => (
-                <a key={m.modelo} href={getWhatsAppLink(m.modelo)} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <MessageCircle className="w-4 h-4" />
-                    {m.modelo}
-                  </Button>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Heavy Duty Lines Table - PBK150 to PBK215 */}
-          <div className="bg-gradient-card rounded-xl border border-border overflow-hidden">
-            <div className="p-6 border-b border-border">
-              <h3 className="font-heading text-xl font-semibold text-foreground flex items-center gap-2">
-                <span className="text-primary">🔥</span> Linhas Pesadas – Alta Capacidade
-              </h3>
-              <p className="text-muted-foreground text-sm mt-1">
-                Especificações técnicas das linhas PBK para máxima performance
-              </p>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[700px]">
-                <thead>
-                  <tr className="border-b border-border bg-muted/50">
-                    <th className="py-4 px-4 text-left text-sm font-heading text-muted-foreground">Especificação</th>
-                    {modelos.linhasPesadas.map((m) => (
-                      <th key={m.modelo} className="py-4 px-4 text-center text-sm font-heading text-primary">
-                        {m.modelo}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {especificacoes.map((spec, idx) => (
-                    <TableRow
-                      key={spec}
-                      spec={spec}
-                      values={modelos.linhasPesadas.map((m) => {
-                        const keys = ["peso", "vazao", "pressao", "frequencia", "energia", "mangueira", "ferramenta", "escavadeira"];
-                        return m[keys[idx] as keyof typeof m];
-                      })}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-border">
-              {modelos.linhasPesadas.map((m) => (
-                <a key={m.modelo} href={getWhatsAppLink(m.modelo)} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <MessageCircle className="w-4 h-4" />
-                    {m.modelo}
-                  </Button>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Final CTA */}
-          <div className="text-center pt-8">
-            <p className="text-muted-foreground mb-4">
-              Não encontrou o modelo ideal? Fale com um especialista!
+          {searchFilter && (
+            <p className="text-center text-sm text-muted-foreground mt-2">
+              {hasResults 
+                ? `Mostrando resultados para "${searchFilter}"` 
+                : `Nenhum modelo encontrado para "${searchFilter}"`
+              }
             </p>
-            <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Gostaria de saber mais sobre os rompedores PBK.")}`} target="_blank" rel="noopener noreferrer">
-              <Button variant="whatsapp" size="lg" className="gap-2">
-                <MessageCircle className="w-5 h-5" />
-                Fale pelo WhatsApp
-              </Button>
-            </a>
-          </div>
+          )}
         </div>
+
+        {/* Individual Model View or Tables */}
+        {selectedModelo ? (
+          <ModeloIndividualView 
+            modelo={selectedModelo} 
+            onClose={() => setSelectedModelo(null)} 
+          />
+        ) : (
+          <div className="space-y-12">
+            {/* Most Sold Table */}
+            <ModelosTable
+              title="Os Mais Vendidos"
+              icon="⭐"
+              modelosList={modelos.maisVendidos}
+              onSelectModelo={setSelectedModelo}
+              searchFilter={searchFilter}
+            />
+
+            {/* Other Models Table */}
+            <ModelosTable
+              title="Mais Modelos Disponíveis"
+              icon="✓"
+              modelosList={modelos.outrosModelos}
+              onSelectModelo={setSelectedModelo}
+              searchFilter={searchFilter}
+            />
+
+            {/* Heavy Duty Lines Table */}
+            <ModelosTable
+              title="Linhas Pesadas – Alta Capacidade"
+              icon="🔥"
+              subtitle="Especificações técnicas das linhas PBK para máxima performance"
+              modelosList={modelos.linhasPesadas}
+              onSelectModelo={setSelectedModelo}
+              searchFilter={searchFilter}
+            />
+
+            {/* No Results Message */}
+            {!hasResults && (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground mb-4">
+                  Nenhum modelo encontrado para "{searchFilter}"
+                </p>
+                <Button variant="outline" onClick={handleClearFilter}>
+                  Limpar busca
+                </Button>
+              </div>
+            )}
+
+            {/* Final CTA */}
+            <div className="text-center pt-8">
+              <p className="text-muted-foreground mb-4">
+                Não encontrou o modelo ideal? Fale com um especialista!
+              </p>
+              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Gostaria de saber mais sobre os rompedores PBK.")}`} target="_blank" rel="noopener noreferrer">
+                <Button variant="whatsapp" size="lg" className="gap-2">
+                  <MessageCircle className="w-5 h-5" />
+                  Fale pelo WhatsApp
+                </Button>
+              </a>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
