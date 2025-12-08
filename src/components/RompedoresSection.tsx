@@ -1,6 +1,6 @@
 import { MessageCircle, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import rompedorImg from "@/assets/rompedor-hidraulico.png";
+import rompedorImg from "@/assets/rompedor-png.webp";
 
 const WHATSAPP_NUMBER = "5531986794960";
 
@@ -81,8 +81,8 @@ const RompedoresSection = () => {
               Alta Performance em Cada Impacto
             </h3>
             <p className="text-muted-foreground mb-6">
-              Nossos rompedores hidráulicos são projetados para oferecer máxima eficiência 
-              e durabilidade. Fabricados com materiais de alta qualidade e tecnologia de ponta, 
+              Nossos rompedores hidráulicos são projetados para oferecer máxima eficiência
+              e durabilidade. Fabricados com materiais de alta qualidade e tecnologia de ponta,
               são ideais para demolição, mineração e construção civil.
             </p>
             <a href="#orcamento">
