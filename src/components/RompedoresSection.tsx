@@ -61,34 +61,34 @@ const getWhatsAppLink = (modelo: string) => {
 };
 
 // Individual Model View Component
-const ModeloIndividualView = ({ 
-  modelo, 
-  onClose 
-}: { 
-  modelo: Modelo; 
+const ModeloIndividualView = ({
+  modelo,
+  onClose
+}: {
+  modelo: Modelo;
   onClose: () => void;
 }) => {
   return (
     <div className="animate-fade-in">
       <div className="bg-gradient-card rounded-xl border border-border overflow-hidden">
         <div className="p-6 border-b border-border flex items-center justify-between">
-          <Button 
-            variant="ghost" 
-            size="sm" 
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={onClose}
             className="gap-2 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar
           </Button>
-          <button 
+          <button
             onClick={onClose}
             className="p-2 rounded-full hover:bg-muted transition-colors"
           >
             <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
-        
+
         <div className="p-8">
           <div className="text-center mb-8">
             <span className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-heading uppercase tracking-wider mb-4">
@@ -104,13 +104,13 @@ const ModeloIndividualView = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {especificacoes.map((spec) => (
-              <div 
+              <div
                 key={spec.key}
                 className="bg-muted/30 rounded-lg p-4 border border-border/50 hover:border-primary/50 transition-colors"
               >
                 <p className="text-sm text-muted-foreground mb-1">{spec.label}</p>
                 <p className="text-xl font-heading font-bold text-foreground">
-                  {modelo[spec.key as keyof Modelo]} 
+                  {modelo[spec.key as keyof Modelo]}
                   <span className="text-sm text-primary ml-1">{spec.unit}</span>
                 </p>
               </div>
@@ -118,9 +118,9 @@ const ModeloIndividualView = ({
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               onClick={onClose}
               className="gap-2"
             >
@@ -158,7 +158,7 @@ const ModelosTable = ({
 }) => {
   const filteredModelos = useMemo(() => {
     if (!searchFilter) return modelosList;
-    return modelosList.filter(m => 
+    return modelosList.filter(m =>
       m.modelo.toLowerCase().includes(searchFilter.toLowerCase())
     );
   }, [modelosList, searchFilter]);
@@ -181,8 +181,8 @@ const ModelosTable = ({
             <tr className="border-b border-border bg-muted/50">
               <th className="py-4 px-4 text-left text-sm font-heading text-muted-foreground">Especificação</th>
               {filteredModelos.map((m) => (
-                <th 
-                  key={m.modelo} 
+                <th
+                  key={m.modelo}
                   className="py-4 px-4 text-center text-sm font-heading text-primary cursor-pointer hover:text-primary/80 transition-colors group"
                   onClick={() => onSelectModelo(m)}
                 >
@@ -201,8 +201,8 @@ const ModelosTable = ({
                   {spec.label} ({spec.unit})
                 </td>
                 {filteredModelos.map((m) => (
-                  <td 
-                    key={m.modelo} 
+                  <td
+                    key={m.modelo}
                     className="py-3 px-4 text-sm text-center text-muted-foreground cursor-pointer hover:text-foreground hover:bg-primary/5 transition-colors"
                     onClick={() => onSelectModelo(m)}
                   >
@@ -216,10 +216,10 @@ const ModelosTable = ({
       </div>
       <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-border">
         {filteredModelos.map((m) => (
-          <Button 
-            key={m.modelo} 
-            variant="outline" 
-            size="sm" 
+          <Button
+            key={m.modelo}
+            variant="outline"
+            size="sm"
             className="gap-2 hover:bg-primary hover:text-primary-foreground transition-all"
             onClick={() => onSelectModelo(m)}
           >
@@ -238,7 +238,7 @@ const RompedoresSection = () => {
 
   const hasResults = useMemo(() => {
     if (!searchFilter) return true;
-    return allModelos.some(m => 
+    return allModelos.some(m =>
       m.modelo.toLowerCase().includes(searchFilter.toLowerCase())
     );
   }, [searchFilter]);
@@ -283,10 +283,9 @@ const RompedoresSection = () => {
               e durabilidade. Fabricados com materiais de alta qualidade e tecnologia de ponta,
               são ideais para demolição, mineração e construção civil.
             </p>
-            <a href="#orcamento">
+            <a href={`https://wa.me/${WHATSAPP_NUMBER}`}>
               <Button variant="hero" size="lg" className="gap-2">
-                Ver todos os modelos
-                <ChevronDown className="w-4 h-4" />
+                Falar com um especialista
               </Button>
             </a>
           </div>
@@ -304,7 +303,7 @@ const RompedoresSection = () => {
               className="pl-12 pr-10 py-6 bg-muted/50 border-border text-foreground placeholder:text-muted-foreground focus:border-primary"
             />
             {searchFilter && (
-              <button 
+              <button
                 onClick={handleClearFilter}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors"
               >
@@ -314,8 +313,8 @@ const RompedoresSection = () => {
           </div>
           {searchFilter && (
             <p className="text-center text-sm text-muted-foreground mt-2">
-              {hasResults 
-                ? `Mostrando resultados para "${searchFilter}"` 
+              {hasResults
+                ? `Mostrando resultados para "${searchFilter}"`
                 : `Nenhum modelo encontrado para "${searchFilter}"`
               }
             </p>
@@ -324,9 +323,9 @@ const RompedoresSection = () => {
 
         {/* Individual Model View or Tables */}
         {selectedModelo ? (
-          <ModeloIndividualView 
-            modelo={selectedModelo} 
-            onClose={() => setSelectedModelo(null)} 
+          <ModeloIndividualView
+            modelo={selectedModelo}
+            onClose={() => setSelectedModelo(null)}
           />
         ) : (
           <div className="space-y-12">
