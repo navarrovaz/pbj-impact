@@ -19,6 +19,13 @@ const modelos = {
     { modelo: "PBK125", peso: "1450", vazao: "170-210", pressao: "190-230", frequencia: "400-650", energia: "4200", mangueira: "1", ferramenta: "125", escavadeira: "15-18" },
     { modelo: "PBK135", peso: "1680", vazao: "210-230", pressao: "230-260", frequencia: "400-650", energia: "4930", mangueira: "1", ferramenta: "135", escavadeira: "18-25" },
   ],
+  linhasPesadas: [
+    { modelo: "PBK150", peso: "2600", vazao: "220-250", pressao: "240-270", frequencia: "300-450", energia: "6600", mangueira: "1", ferramenta: "150", escavadeira: "25-30" },
+    { modelo: "PBK165", peso: "3100", vazao: "250-270", pressao: "260-280", frequencia: "250-400", energia: "10500", mangueira: "5/4", ferramenta: "165", escavadeira: "30-40" },
+    { modelo: "PBK175", peso: "4150", vazao: "270-290", pressao: "280-300", frequencia: "250-350", energia: "12000", mangueira: "5/4", ferramenta: "175", escavadeira: "35-45" },
+    { modelo: "PBK195", peso: "5380", vazao: "290-310", pressao: "300-320", frequencia: "210-300", energia: "17300", mangueira: "5/4", ferramenta: "195", escavadeira: "48-60" },
+    { modelo: "PBK215", peso: "6800", vazao: "340-370", pressao: "350-380", frequencia: "200-300", energia: "20500", mangueira: "5/4", ferramenta: "215", escavadeira: "70-120" },
+  ],
 };
 
 const especificacoes = [
@@ -184,6 +191,67 @@ const RompedoresSection = () => {
                 </a>
               ))}
             </div>
+          </div>
+
+          {/* Heavy Duty Lines Table - PBK150 to PBK215 */}
+          <div className="bg-gradient-card rounded-xl border border-border overflow-hidden">
+            <div className="p-6 border-b border-border">
+              <h3 className="font-heading text-xl font-semibold text-foreground flex items-center gap-2">
+                <span className="text-primary">🔥</span> Linhas Pesadas – Alta Capacidade
+              </h3>
+              <p className="text-muted-foreground text-sm mt-1">
+                Especificações técnicas das linhas PBK para máxima performance
+              </p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[700px]">
+                <thead>
+                  <tr className="border-b border-border bg-muted/50">
+                    <th className="py-4 px-4 text-left text-sm font-heading text-muted-foreground">Especificação</th>
+                    {modelos.linhasPesadas.map((m) => (
+                      <th key={m.modelo} className="py-4 px-4 text-center text-sm font-heading text-primary">
+                        {m.modelo}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {especificacoes.map((spec, idx) => (
+                    <TableRow
+                      key={spec}
+                      spec={spec}
+                      values={modelos.linhasPesadas.map((m) => {
+                        const keys = ["peso", "vazao", "pressao", "frequencia", "energia", "mangueira", "ferramenta", "escavadeira"];
+                        return m[keys[idx] as keyof typeof m];
+                      })}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="p-4 flex flex-wrap gap-2 justify-center border-t border-border">
+              {modelos.linhasPesadas.map((m) => (
+                <a key={m.modelo} href={getWhatsAppLink(m.modelo)} target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="sm" className="gap-2">
+                    <MessageCircle className="w-4 h-4" />
+                    {m.modelo}
+                  </Button>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Final CTA */}
+          <div className="text-center pt-8">
+            <p className="text-muted-foreground mb-4">
+              Não encontrou o modelo ideal? Fale com um especialista!
+            </p>
+            <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Gostaria de saber mais sobre os rompedores PBK.")}`} target="_blank" rel="noopener noreferrer">
+              <Button variant="whatsapp" size="lg" className="gap-2">
+                <MessageCircle className="w-5 h-5" />
+                Fale pelo WhatsApp
+              </Button>
+            </a>
           </div>
         </div>
       </div>
