@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import DiferenciaisSection from "@/components/DiferenciaisSection";
 import RompedoresSection from "@/components/RompedoresSection";
 import PonteirasSection from "@/components/PonteirasSection";
+import PecasReposicaoSection from "@/components/PecasReposicaoSection";
 import OrcamentoSection from "@/components/OrcamentoSection";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -37,6 +38,7 @@ const Index = () => {
           <DiferenciaisSection />
           <RompedoresSection />
           <PonteirasSection />
+          <PecasReposicaoSection />
           <OrcamentoSection />
         </main>
         <Footer />
