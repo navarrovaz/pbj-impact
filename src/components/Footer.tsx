@@ -1,4 +1,13 @@
-import { Phone, MapPin, Globe, Shield, Wrench, Headphones, Zap } from "lucide-react";
+import {
+  Phone,
+  MapPin,
+  Mail,
+  Instagram,
+  Shield,
+  Wrench,
+  Headphones,
+  Zap
+} from "lucide-react";
 import logoIcon from "@/assets/logo-icon.png";
 
 const WHATSAPP_NUMBER = "5531986794960";
@@ -68,19 +77,35 @@ const Footer = () => {
                 <Phone className="w-4 h-4 text-primary" />
                 (31) 9 8679-4960
               </a>
+
               <div className="flex items-start gap-3 text-muted-foreground text-sm">
                 <MapPin className="w-4 h-4 text-primary mt-0.5" />
-                <span>Rua Maria Lúcia, 58<br />Lagoa Santa/MG</span>
+                <span>
+                  Rua Maria Lúcia, 58
+                  <br />
+                  Lagoa Santa/MG
+                </span>
               </div>
+              {/* Instagram */}
               <a
-                href="https://pbkequipamentos.com.br"
+                href="https://instagram.com/pbkequipamentos"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm"
               >
-                <Globe className="w-4 h-4 text-primary" />
-                pbjequipamentos.com.br
+                <Instagram className="w-4 h-4 text-primary" />
+                @pbkequipamentos
               </a>
+              {/* E-mail */}
+              <a
+                href="mailto:pbkequipamentos@gmail.com"
+                className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm"
+              >
+                <Mail className="w-4 h-4 text-primary" />
+                pbkequipamentos@gmail.com
+              </a>
+
+
             </div>
           </div>
 
@@ -91,7 +116,10 @@ const Footer = () => {
             </h4>
             <div className="space-y-3">
               {suporte.map((item) => (
-                <div key={item.label} className="flex items-center gap-3 text-muted-foreground text-sm">
+                <div
+                  key={item.label}
+                  className="flex items-center gap-3 text-muted-foreground text-sm"
+                >
                   <item.icon className="w-4 h-4 text-primary" />
                   {item.label}
                 </div>
