@@ -1,6 +1,6 @@
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/rompedor hidraulico pbk.webp";
+import heroBg from "@/assets/rompedor-hidraulico-pbk.webp";
 
 const WHATSAPP_NUMBER = "5531986794960";
 const WHATSAPP_MESSAGE = encodeURIComponent("Olá! Gostaria de solicitar um orçamento para equipamentos PBK.");
