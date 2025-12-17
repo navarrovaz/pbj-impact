@@ -24,7 +24,7 @@ const modelos = {
     { modelo: "PBK68", peso: "340", vazao: "30-60", pressao: "110-140", frequencia: "500-900", energia: "838", mangueira: "1/2", ferramenta: "68", escavadeira: "5-7" },
     { modelo: "PBK75", peso: "480", vazao: "50/90", pressao: "120-170", frequencia: "400-800", energia: "1030", mangueira: "1/2", ferramenta: "75", escavadeira: "7-9" },
     { modelo: "PBK140", peso: "1850", vazao: "210-230", pressao: "230-260", frequencia: "400-500", energia: "5800", mangueira: "1", ferramenta: "140", escavadeira: "20-30" },
-    { modelo: "PBK155", peso: "2750", vazao: "220-250", pressao: "140-270", frequencia: "300-400", energia: "7500", mangueira: "1", ferramenta: "155", escavadeira: "27-36" },
+    { modelo: "PBK155", peso: "2750", vazao: "220-250", pressao: "240-270", frequencia: "300-400", energia: "7500", mangueira: "1", ferramenta: "155", escavadeira: "27-36" },
   ],
   outrosModelos: [
     { modelo: "PBK45", peso: "150", vazao: "20-40", pressao: "90-120", frequencia: "500-1000", energia: "350", mangueira: "1/2", ferramenta: "45", escavadeira: "1-2" },
@@ -184,7 +184,7 @@ const ModelosTable = ({
                 <th
                   key={m.modelo}
                   className="py-4 px-4 text-center text-sm font-heading text-primary cursor-pointer hover:text-primary/80 transition-colors group"
-                  onClick={() => onSelectModelo(m)}
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSelectModelo(m); }}
                 >
                   <span className="group-hover:underline underline-offset-4">{m.modelo}</span>
                   <span className="block text-[10px] text-muted-foreground font-normal opacity-0 group-hover:opacity-100 transition-opacity">
@@ -204,7 +204,7 @@ const ModelosTable = ({
                   <td
                     key={m.modelo}
                     className="py-3 px-4 text-sm text-center text-muted-foreground cursor-pointer hover:text-foreground hover:bg-primary/5 transition-colors"
-                    onClick={() => onSelectModelo(m)}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSelectModelo(m); }}
                   >
                     {m[spec.key as keyof Modelo]}
                   </td>
@@ -221,7 +221,7 @@ const ModelosTable = ({
             variant="outline"
             size="sm"
             className="gap-2 hover:bg-primary hover:text-primary-foreground transition-all"
-            onClick={() => onSelectModelo(m)}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSelectModelo(m); }}
           >
             <MessageCircle className="w-4 h-4" />
             {m.modelo}
@@ -248,8 +248,11 @@ const RompedoresSection = () => {
   };
 
   return (
-    <section id="rompedores" className="py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="rompedores" className="py-20 md:py-32 bg-background relative overflow-hidden">
+      {/* Background crack texture and glow effect */}
+      <div className="absolute inset-0 opacity-[0.05] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNMCAwTDUwIDMwTDIwIDgwTDgwIDEwMEw0MCAxNTBMMTAwIDE4MEwxNTAgMTQwTDE4MCAyMDBMMjAwIDE1MEwxNzAgMTAwTDIwMCA1MEwxNTAgMjBMMTAwIDYwTDYwIDIwTDAgMFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+')] pointer-events-none" />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl md:text-5xl font-bold text-secondary mb-4">
             Rompedores <span className="text-gradient">Hidráulicos</span>
@@ -262,11 +265,12 @@ const RompedoresSection = () => {
         {/* Featured Product */}
         <div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
           <div className="lg:w-1/2">
-            <div className="relative">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 rounded-full blur-3xl transition-all duration-500 animate-pulse-glow opacity-0 group-hover:opacity-100" />
               <img
                 src={rompedorImg}
                 alt="Rompedor Hidráulico PBK"
-                className="w-full max-w-lg mx-auto drop-shadow-2xl animate-float"
+                className="w-full max-w-lg mx-auto drop-shadow-2xl animate-float relative z-10"
               />
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-4 bg-gradient-to-r from-transparent via-primary/20 to-transparent blur-xl" />
             </div>
