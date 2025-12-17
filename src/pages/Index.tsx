@@ -37,10 +37,10 @@ const Index = () => {
         <main>
           <HeroSection />
           <DiferenciaisSection />
-          <MissaoVisaoValoresSection />
           <RompedoresSection />
           <PonteirasSection />
           <PecasReposicaoSection />
+          <MissaoVisaoValoresSection />
           <OrcamentoSection />
         </main>
         <Footer />
