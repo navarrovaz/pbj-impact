@@ -60,7 +60,7 @@ Gostaria de solicitar um orçamento.`;
               Pronto para elevar a <span className="text-gradient">performance</span> da sua operação?
             </h2>
             <p className="text-muted-foreground text-lg">
-              Preencha o formulário e receba um orçamento personalizado em até 24h.
+              Para agilizar, informe exatamente o que precisa: equipamento ou peça. Se for rompedor, diga a máquina; se for peça, o modelo do rompedor.
             </p>
           </div>
 
