@@ -204,3 +204,54 @@
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
+
+/* Equipment Alternating Animation - Dual Display */
+@keyframes equipmentPrimary {
+  0%, 45% {
+    transform: translateX(-10%) scale(1.05);
+    z-index: 20;
+    opacity: 1;
+    filter: drop-shadow(0 20px 40px rgba(255, 143, 51, 0.3));
+  }
+  50%, 95% {
+    transform: translateX(10%) scale(0.9);
+    z-index: 10;
+    opacity: 0.7;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+  }
+  100% {
+    transform: translateX(-10%) scale(1.05);
+    z-index: 20;
+    opacity: 1;
+    filter: drop-shadow(0 20px 40px rgba(255, 143, 51, 0.3));
+  }
+}
+
+@keyframes equipmentSecondary {
+  0%, 45% {
+    transform: translateX(10%) scale(0.9);
+    z-index: 10;
+    opacity: 0.7;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+  }
+  50%, 95% {
+    transform: translateX(-10%) scale(1.05);
+    z-index: 20;
+    opacity: 1;
+    filter: drop-shadow(0 20px 40px rgba(255, 143, 51, 0.3));
+  }
+  100% {
+    transform: translateX(10%) scale(0.9);
+    z-index: 10;
+    opacity: 0.7;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+  }
+}
+
+.equipment-primary {
+  animation: equipmentPrimary 8s ease-in-out infinite;
+}
+
+.equipment-secondary {
+  animation: equipmentSecondary 8s ease-in-out infinite;
+}
