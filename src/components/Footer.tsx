@@ -9,6 +9,7 @@ import {
   Zap
 } from "lucide-react";
 import logoIcon from "@/assets/logo-icon.png";
+import qrCode from '@/assets/qrCode.jpeg';
 
 const WHATSAPP_NUMBER = "5531986794960";
 
@@ -30,7 +31,9 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        {/* ALTERAÇÃO 1: Aumentei de 4 para 5 colunas no grid (lg:grid-cols-5) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          
           {/* Logo e Slogan */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
@@ -104,8 +107,6 @@ const Footer = () => {
                 <Mail className="w-4 h-4 text-primary" />
                 pbkequipamentos@gmail.com
               </a>
-
-
             </div>
           </div>
 
@@ -126,8 +127,20 @@ const Footer = () => {
               ))}
             </div>
           </div>
-        </div>
 
+          <div>
+            <h4 className="font-heading text-lg font-semibold text-foreground mb-4">
+              Link Tree
+            </h4>
+              <img 
+                className="w-28 h-28 object-contain group-hover:scale-110 transition-transform duration-300" 
+                src={qrCode} 
+                alt="QR Code" 
+              />
+          </div>
+
+        </div>
+         
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground text-sm">

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react"; // Importei useEffect
 import { MessageCircle, ChevronDown, Search, ArrowLeft, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -236,6 +236,19 @@ const RompedoresSection = () => {
   const [selectedModelo, setSelectedModelo] = useState<Modelo | null>(null);
   const [searchFilter, setSearchFilter] = useState("");
 
+  useEffect(() => {
+    if (selectedModelo) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById('card-detalhes-rompedor');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [selectedModelo]);
+
   const hasResults = useMemo(() => {
     if (!searchFilter) return true;
     return allModelos.some(m =>
@@ -327,10 +340,13 @@ const RompedoresSection = () => {
 
         {/* Individual Model View or Tables */}
         {selectedModelo ? (
-          <ModeloIndividualView
-            modelo={selectedModelo}
-            onClose={() => setSelectedModelo(null)}
-          />
+          // ADICIONEI O id="card-detalhes-rompedor" AQUI
+          <div id="card-detalhes-rompedor" className="animate-fade-in">
+            <ModeloIndividualView
+              modelo={selectedModelo}
+              onClose={() => setSelectedModelo(null)}
+            />
+          </div>
         ) : (
           <div className="space-y-12">
             {/* Most Sold Table */}

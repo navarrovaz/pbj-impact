@@ -30,6 +30,17 @@ const Index = () => {
         />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://pbjequipamentos.com.br" />
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16799698686"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-16799698686');
+          `}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-background">

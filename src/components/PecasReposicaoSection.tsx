@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
 import buchasAnel from "@/assets/buchas-anel.png";
-import buchasLisa from "@/assets/buchas-lisa.png";
+import graxas from "@/assets/graxas-1.png";
 import cunhas from "@/assets/cunhas.png";
 import kitVedacao from "@/assets/kit-vedacao.png";
 import pistoes from "@/assets/pistoes.png";
@@ -10,8 +10,8 @@ import tirante from "@/assets/tirante.png";
 const pecas = [
   { name: "Tirantes", descricao: "Aço carbono de alta resistência", image: tirante },
   { name: "Pistões", descricao: "Precisão e durabilidade garantidas", image: pistoes },
-  { name: "Buchas com Anel", descricao: "Encaixe perfeito e longa vida útil", image: buchasAnel },
-  { name: "Buchas Lisas", descricao: "Acabamento superior", image: buchasLisa },
+  { name: "Buchas", descricao: "Encaixe perfeito e longa vida útil", image: buchasAnel },
+  { name: "Graxas", descricao: "Graxas de boa aderência e alta qualidade", image: graxas },
   { name: "Cunhas E Pinos", descricao: "Ajuste preciso e eficiente", image: cunhas },
   { name: "Kit Vedação, Membranas e Amortecedores", descricao: "Pacote completo de manutenção", image: kitVedacao },
 ];
@@ -27,7 +27,7 @@ const PecasReposicaoSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-4">
-            Peças de Reposição
+            Peças de Reposição e Lubrificantes
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Peças originais e de alta durabilidade para manter seus equipamentos em perfeitas condições.
