@@ -1,8 +1,9 @@
-import { useState, useMemo, useEffect } from "react"; // Importei useEffect
+import { useState, useMemo, useEffect } from "react";
 import { MessageCircle, ChevronDown, Search, ArrowLeft, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import rompedorImg from "@/assets/rompedor-png.webp";
+import rompedorImg2 from "@/assets/rompedor-pbk-2.png";
 
 const WHATSAPP_NUMBER = "5531986794960";
 
@@ -275,16 +276,32 @@ const RompedoresSection = () => {
           </p>
         </div>
 
-        {/* Featured Product */}
+        {/* Featured Product with Dual Equipment Alternating Effect */}
         <div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
           <div className="lg:w-1/2">
-            <div className="relative group">
-              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 rounded-full blur-3xl transition-all duration-500 animate-pulse-glow opacity-0 group-hover:opacity-100" />
-              <img
-                src={rompedorImg}
-                alt="Rompedor Hidráulico PBK"
-                className="w-full max-w-lg mx-auto drop-shadow-2xl animate-float relative z-10"
-              />
+            <div className="relative h-[500px] md:h-[600px] flex items-center justify-center">
+              {/* Glow effect background */}
+              <div className="absolute inset-0 bg-primary/5 rounded-full blur-3xl animate-pulse-glow opacity-50" />
+              
+              {/* Equipment 1 - Primary alternating */}
+              <div className="absolute inset-0 flex items-center justify-center equipment-primary">
+                <img
+                  src={rompedorImg}
+                  alt="Rompedor Hidráulico PBK - Modelo 1"
+                  className="max-h-[90%] w-auto drop-shadow-2xl object-contain"
+                />
+              </div>
+              
+              {/* Equipment 2 - Secondary alternating */}
+              <div className="absolute inset-0 flex items-center justify-center equipment-secondary">
+                <img
+                  src={rompedorImg2}
+                  alt="Rompedor Hidráulico PBK - Modelo 2"
+                  className="max-h-[90%] w-auto drop-shadow-2xl object-contain"
+                />
+              </div>
+              
+              {/* Ground shadow */}
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-4 bg-gradient-to-r from-transparent via-primary/20 to-transparent blur-xl" />
             </div>
           </div>
