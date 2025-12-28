@@ -276,29 +276,31 @@ const RompedoresSection = () => {
           </p>
         </div>
 
-        {/* Featured Product with Dual Equipment Alternating Effect */}
-        <div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
-          <div className="lg:w-1/2">
-            <div className="relative h-[500px] md:h-[600px] flex items-center justify-center">
-              {/* Glow effect background */}
-              <div className="absolute inset-0 bg-primary/5 rounded-full blur-3xl animate-pulse-glow opacity-50" />
-              
-              {/* Equipment 1 - Primary alternating */}
-              <div className="absolute inset-0 flex items-center justify-center equipment-primary">
-                <img
-                  src={rompedorImg}
-                  alt="Rompedor Hidráulico PBK - Modelo 1"
-                  className="max-h-[90%] w-auto drop-shadow-2xl object-contain"
-                />
-              </div>
-              
-              {/* Equipment 2 - Secondary alternating */}
-              <div className="absolute inset-0 flex items-center justify-center equipment-secondary">
-                <img
-                  src={rompedorImg2}
-                  alt="Rompedor Hidráulico PBK - Modelo 2"
-                  className="max-h-[90%] w-auto drop-shadow-2xl object-contain"
-                />
+    {/* Featured Product with Dual Equipment Alternating Effect */}
+<div className="flex flex-col lg:flex-row items-center gap-12 mb-20">
+  <div className="lg:w-1/2 w-full"> {/* Garante 100% de largura no mobile */}
+    <div className="relative h-[400px] md:h-[600px] flex items-center justify-center overflow-visible">
+      {/* Adicionei overflow-visible acima */}
+      
+      {/* Glow effect background */}
+      <div className="absolute inset-0 bg-primary/5 rounded-full blur-3xl animate-pulse-glow opacity-50 pointer-events-none" />
+      
+      {/* Equipment 1 */}
+      <div className="absolute inset-0 flex items-center justify-center equipment-primary will-change-transform">
+        <img
+          src={rompedorImg}
+          alt="Rompedor Hidráulico PBK - Modelo 1"
+          className="max-h-full w-auto drop-shadow-2xl object-contain"
+        />
+      </div>
+      
+      {/* Equipment 2 */}
+      <div className="absolute inset-0 flex items-center justify-center equipment-secondary will-change-transform">
+        <img
+          src={rompedorImg2}
+          alt="Rompedor Hidráulico PBK - Modelo 2"
+          className="max-h-full w-auto drop-shadow-2xl object-contain"
+        />
               </div>
               
               {/* Ground shadow */}
