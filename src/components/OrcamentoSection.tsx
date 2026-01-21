@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Send, MessageCircle, Mail, Loader2 } from "lucide-react"; 
+import { Send, MessageCircle, Mail, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import emailjs from '@emailjs/browser'; 
+import emailjs from "@emailjs/browser";
+import { useNavigate } from "react-router-dom";
 
 const WHATSAPP_NUMBER = "5531986794960";
 const EMAILJS_SERVICE_ID = "service_c8ov43i";
@@ -20,8 +21,10 @@ const OrcamentoSection = () => {
     mensagem: "",
   });
   const [isSendingEmail, setIsSendingEmail] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const navigate = useNavigate();
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -46,7 +49,7 @@ Telefone: ${formData.telefone}
  ${formData.mensagem ? `\nMensagem: ${formData.mensagem}` : ""}
 
 Gostaria de solicitar um orçamento.`;
-
+    navigate("/obrigado");
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");
 
@@ -56,7 +59,9 @@ Gostaria de solicitar um orçamento.`;
     });
   };
 
-  const handleAutomaticEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAutomaticEmail = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
 
     if (!formData.nome || !formData.email || !formData.telefone) {
@@ -74,7 +79,7 @@ Gostaria de solicitar um orçamento.`;
       to_email: "contato@pbkequipamentos.com.br",
       from_name: formData.nome,
       from_email: formData.email,
-      reply_to: formData.email, 
+      reply_to: formData.email,
       telefone: formData.telefone,
       message: formData.mensagem,
     };
@@ -84,15 +89,16 @@ Gostaria de solicitar um orçamento.`;
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         templateParams,
-        EMAILJS_PUBLIC_KEY
+        EMAILJS_PUBLIC_KEY,
       );
 
       toast({
         title: "Enviado com sucesso!",
-        description: "Solicitação enviada automaticamente para nossos consultores.",
+        description:
+          "Solicitação enviada automaticamente para nossos consultores.",
       });
       setFormData({ nome: "", email: "", telefone: "", mensagem: "" });
-
+      navigate("/obrigado");
     } catch (error) {
       console.error("Erro ao enviar e-mail:", error);
       toast({
@@ -111,10 +117,14 @@ Gostaria de solicitar um orçamento.`;
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl md:text-5xl font-bold text-secondary mb-4">
-              Pronto para elevar a <span className="text-gradient">performance</span> da sua operação?
+              Pronto para elevar a{" "}
+              <span className="text-gradient">performance</span> da sua
+              operação?
             </h2>
             <p className="text-muted-foreground text-lg">
-              Para agilizar, informe exatamente o que precisa: equipamento ou peça. Se for rompedor, diga a máquina; se for peça, o modelo do rompedor.
+              Para agilizar, informe exatamente o que precisa: equipamento ou
+              peça. Se for rompedor, diga a máquina; se for peça, o modelo do
+              rompedor.
             </p>
           </div>
 
@@ -122,7 +132,10 @@ Gostaria de solicitar um orçamento.`;
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="nome" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="nome"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     Nome *
                   </label>
                   <Input
@@ -137,7 +150,10 @@ Gostaria de solicitar um orçamento.`;
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     E-mail *
                   </label>
                   <Input
@@ -154,7 +170,10 @@ Gostaria de solicitar um orçamento.`;
               </div>
 
               <div>
-                <label htmlFor="telefone" className="block text-sm font-medium text-foreground mb-2">
+                <label
+                  htmlFor="telefone"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
                   Telefone / WhatsApp *
                 </label>
                 <Input
@@ -170,7 +189,10 @@ Gostaria de solicitar um orçamento.`;
               </div>
 
               <div>
-                <label htmlFor="mensagem" className="block text-sm font-medium text-foreground mb-2">
+                <label
+                  htmlFor="mensagem"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
                   Mensagem
                 </label>
                 <Textarea
@@ -185,16 +207,21 @@ Gostaria de solicitar um orçamento.`;
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Button type="submit" variant="whatsapp" size="xl" className="flex-1 gap-2">
+                <Button
+                  type="submit"
+                  variant="whatsapp"
+                  size="xl"
+                  className="flex-1 gap-2"
+                >
                   <Send className="w-5 h-5" />
                   WhatsApp
                 </Button>
-                
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  size="xl" 
-                  className="flex-1 gap-2" 
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="xl"
+                  className="flex-1 gap-2"
                   onClick={handleAutomaticEmail}
                   disabled={isSendingEmail}
                 >
@@ -214,15 +241,17 @@ Gostaria de solicitar um orçamento.`;
             </form>
 
             <div className="mt-8 pt-8 border-t border-border text-center">
-              <p className="text-muted-foreground mb-4">
-                Prefere falar agora?
-              </p>
+              <p className="text-muted-foreground mb-4">Prefere falar agora?</p>
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Gostaria de falar com um especialista da PBK Equipamentos.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button variant="ghost" size="lg" className="gap-2 hover:text-primary">
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  className="gap-2 hover:text-primary"
+                >
                   <MessageCircle className="w-5 h-5" />
                   Chame no WhatsApp
                 </Button>
